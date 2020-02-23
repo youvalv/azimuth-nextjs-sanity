@@ -1,7 +1,8 @@
-This is Azimuth theme implemented on top of [Next.js](https://nextjs.org/) project bootstrapped with 
-[`create-next-app`](https://github.com/zeit/next.js/tree/canary/packages/create-next-app). The site is built statically,
+This is Azimuth theme implemented on top of [Next.js](https://nextjs.org/). The site is built statically,
 therefore can be hosted in serverless environment. The content of the site is powered by [Sanity.io](https://www.sanity.io/)
 and provided at the built time.
+
+[Site demo](https://azimuth-nextjs-sanity.netlify.com/)
 
 ## Getting Started
 
