@@ -1,20 +1,21 @@
-This is Azimuth theme implemented on top of [Next.js](https://nextjs.org/). The site is built statically,
-therefore can be hosted in serverless environment. The content of the site is powered by [Sanity.io](https://www.sanity.io/)
-and provided at the built time.
+This is an implementation of Stackbit's Azimuth theme on top of [Next.js](https://nextjs.org/). The site is built statically,
+and it can be hosted in serverless environment, such as [Netlify](https://www.netlify.com). The content of the site
+is powered by [Sanity.io](https://www.sanity.io/) and provided to the built script at the build time.
 
 [Site demo](https://azimuth-nextjs-sanity.netlify.com/)
 
 ## Getting Started
 
-First, sign up to [Sanity.io](https://www.sanity.io/) and create new project. Then [import](https://www.sanity.io/docs/importing-data) 
-the `sanity-project-export/export.ndjson` into your project:
+First, sign up to [Sanity.io](https://www.sanity.io/) and create a new project.
+Then [import](https://www.sanity.io/docs/importing-data) `sanity-export/export.ndjson` into the created project:
 
 ```
-sanity dataset import ./sanity-project-export/export.ndjson production
+sanity dataset import ./sanity-export/export.ndjson production
 ```
 
-Then, define environment variables to allow sanity client to fetch the data. You will need to create "read-write" token
-from your Sanity project settings (https://manage.sanity.io/projects/__PROJECT_ID__/settings/api)
+After importing the project, define following environment variables to allow Sanity client to fetch the roject content
+when developing or building the site. You will need to create "read-write" token in your Sanity project settings page 
+(https://manage.sanity.io/projects/__PROJECT_ID__/settings/api)
 
 ```
 export SANITY_PROJECT_ID=<your sanity project id>

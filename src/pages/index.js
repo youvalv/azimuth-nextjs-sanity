@@ -33,7 +33,7 @@ export default class Page extends React.Component {
     }
 
     render() {
-        const config = _.get(this.props, 'siteConfig');
+        const config = _.get(this.props, 'config');
         const page = _.get(this.props, 'page');
         const posts = _.get(this.props, 'posts');
         const path = _.get(this.props, 'path');

@@ -8,6 +8,7 @@ const token = process.env.SANITY_TOKEN;
 module.exports = {
     getObjectsOfTypes,
     getObjectsOfUserTypes,
+    getResolvedObjectOfUserTypes,
     resolveReferences
 };
 
@@ -28,6 +29,13 @@ function getObjectsOfTypes(types) {
 function getObjectsOfUserTypes() {
     const client = getSanityClient();
     return client.fetch('*[!(_id in path("_.**"))]');
+}
+
+function getResolvedObjectOfUserTypes() {
+    return getObjectsOfUserTypes().then(data => {
+        data = resolveReferences(data);
+        return _.reject(data, {_type: 'sanity.imageAsset'});
+    });
 }
 
 function resolveReferences(data) {
