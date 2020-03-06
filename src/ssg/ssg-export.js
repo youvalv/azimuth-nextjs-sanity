@@ -64,11 +64,40 @@ async function exportPages({ data, defaultPathMap, dev, dir, outDir, distDir, bu
     });
 }
 
+function Deferred() {
+    this.promise = new Promise((resolve, reject) => {
+        this.reject = reject;
+        this.resolve = resolve;
+    });
+}
+
+/**
+ * By using following flags, we ensure that successive calls to writeInitProps()
+ * with different "data" will not write files for each call in parallel.
+ * Instead, successive calls to writeInitProps() will defer writing files after
+ * currently running writeInitProps() is resolved.
+ * Additionally, if writeInitProps() are called multiple times while one is
+ * already running, all calls will be deferred to a single run, after the
+ * current one completes, and with the "data" provided to the last call.
+ */
+let writing = false;
+let rewriteData = null;
+let deferredPromise = null;
+
 async function writeInitProps({ data, initPropsDir, dev }) {
+    if (writing) {
+        console.log(`[ssg-export] still writing init-props.json for previous data, waiting to finish to write new data...`);
+        rewriteData = data;
+        if (!deferredPromise) {
+            deferredPromise = new Deferred();
+        }
+        return deferredPromise.promise;
+    }
     console.log(`[ssg-export] writing init-props.json for ${_.size(data.pages)} pages...`);
+    writing = true;
     return _.reduce(data.pages, (promise, page) => {
         return promise.then(async () => {
-            console.log(`[ssg-export] writing init-props.json at path '${page.path}'`);
+            // console.log(`[ssg-export] writing init-props.json at path '${page.path}'`);
             const jsonFilePath = path.join(initPropsDir, _.trim(page.path, '/'), 'init-props.json');
             const initialProps = _.assign(
                 {
@@ -81,7 +110,18 @@ async function writeInitProps({ data, initPropsDir, dev }) {
             );
             await fse.outputFile(jsonFilePath, JSON.stringify(initialProps));
         });
-    }, Promise.resolve());
+    }, Promise.resolve()).then(() => {
+        console.log(`[ssg-export] done writing init-props.json`);
+        writing = false;
+        if (rewriteData) {
+            console.log(`[ssg-export] write init-props.json files for deferred data`);
+            const resolve = deferredPromise.resolve;
+            data = rewriteData;
+            deferredPromise = null;
+            rewriteData = null;
+            writeInitProps({ data, initPropsDir, dev }).then(resolve);
+        }
+    });
 }
 
 function generatePathMap({ data, initPropsDir }) {

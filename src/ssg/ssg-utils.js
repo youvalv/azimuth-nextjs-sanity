@@ -20,7 +20,12 @@ function reducePageTypes(pageTypes, data) {
         const pageFilePath = pageTypeDef.page || '/';
         const pathTemplate = pageTypeDef.path || '/{slug}';
         return _.reduce(pages, (accum, page) => {
-            const path = interpolatePagePath(pathTemplate, page);
+            let path;
+            try {
+                path = interpolatePagePath(pathTemplate, page);
+            } catch (e) {
+                return accum;
+            }
             return _.concat(accum, {
                 pageFilePath: pageFilePath,
                 path: path,
@@ -45,8 +50,7 @@ function interpolatePagePath(pathTemplate, page) {
     let path = pathTemplate.replace(/{([\s\S]+?)}/g, (match, p1) => {
         const fieldValue = _.get(page, p1);
         if (!fieldValue) {
-            console.error(`page has no value in field '${p1}', page: ${util.inspect(page, {depth: 0})}`);
-            return null;
+            throw new Error(`page has no value in field '${p1}', page: ${util.inspect(page, {depth: 0})}`);
         }
         return _.trim(fieldValue, '/');
     });

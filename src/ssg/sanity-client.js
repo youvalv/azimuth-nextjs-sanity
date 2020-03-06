@@ -42,27 +42,34 @@ function getObjectsOfUserTypes(options) {
     return client.fetch(query).then(data => {
         const result = processData(data, options);
         if (options.listen) {
-            listenToUserTypes(_.assign(options, { client }), options.listen, data);
+            listenToUserTypes(_.assign(options, { client }), data, options.listen);
         }
         return result;
     });
 }
 
-function listenToUserTypes(options, callback, data) {
+function listenToUserTypes(options, data, callback) {
     const client = _.get(options, 'client', getSanityClient());
     const query = '*[!(_id in path("_.**"))]';
     return client.listen(query).subscribe(update => {
-        // TODO: handle deletions
-        const doc = _.get(update, 'result');
-        const docId = _.get(doc, '_id');
-        if (!data) {
-            return doc;
-        }
-        const index = _.findIndex(data, _.matchesProperty('_id', docId));
-        if (index > -1) {
-            data[index] = doc;
-        } else if (doc) {
-            data = _.concat(data, doc);
+        const docId = _.get(update, 'documentId');
+        const docIndex = _.findIndex(data, _.matchesProperty('_id', docId));
+        const transition = _.get(update, 'transition');
+        console.log(`[sanity-client] got event transition: '${transition}', documentId: '${docId}'`);
+        if (_.includes(['appear', 'update'], transition)) {
+            const doc = _.get(update, 'result');
+            if (docIndex > -1) {
+                // replace the document with the updated document
+                data[docIndex] = doc;
+            } else {
+                // append new document to the end
+                data.push(doc);
+            }
+        } else if (_.get(update, 'transition') === 'disappear') {
+            if (docIndex > -1) {
+                // remove the deleted document
+                _.pullAt(data, [docIndex]);
+            }
         }
         const result = processData(data, options);
         callback(result);
