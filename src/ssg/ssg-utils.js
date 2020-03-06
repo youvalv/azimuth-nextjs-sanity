@@ -1,12 +1,18 @@
 const util = require('util');
 const _ = require('lodash');
 
-module.exports = function reduceDataForExport({ data, pageTypes, propsMap }) {
+module.exports = {
+    reduceDataForInitPropsExport,
+    reducePageTypes,
+    reducePropsMap
+};
+
+function reduceDataForInitPropsExport(data, { pageTypes, propsMap }) {
     return {
         props: reducePropsMap(propsMap, data),
         pages: reducePageTypes(pageTypes, data)
     };
-};
+}
 
 function reducePageTypes(pageTypes, data) {
     return _.reduce(pageTypes, (accum, pageTypeDef) => {

@@ -1,19 +1,15 @@
 const withSass = require('@zeit/next-sass');
 const _ = require('lodash');
 
-const { getResolvedObjectOfUserTypes } = require('./src/utils/sanity-tools');
-const reduceDataForExport = require('./src/utils/ssg-reduce-data');
-const exportPages = require('./src/utils/ssg-export-pages');
+const { getObjectsOfUserTypes } = require('./src/ssg/sanity-client');
+const { reduceDataForInitPropsExport } = require('./src/ssg/ssg-utils');
+const { withInitPropsExport } = require('./src/ssg/ssg-export');
 
-module.exports = withSass({
-    exportPathMap: async function(defaultPathMap, { dev, dir, outDir, distDir, buildId }) {
+module.exports = withSass(withInitPropsExport({
+    exportInitProps: async function({ updateInitProps }) {
 
-        // Get data from Sanity
-        let data = await getResolvedObjectOfUserTypes();
-
-        // Reduce the data to format expected by ssg-export-path-map
-        data = reduceDataForExport({
-            data,
+        // Options to reduce the data to the format expected by exportSSGData
+        const dataReduceOptions = {
             pageTypes: [
                 { page: '/', path: '/{slug.current}', predicate: _.matchesProperty('_type', 'landing') },
                 { page: '/', path: '/{slug.current}', predicate: _.matchesProperty('_type', 'page') },
@@ -24,9 +20,20 @@ module.exports = withSass({
                 config: { single: true, predicate: _.matchesProperty('_type', 'site_config') },
                 posts: { predicate: _.matchesProperty('_type', 'post') }
             }
+        };
+
+        // Get all user defined content from Sanity
+        // and continue listening for content as they change
+        const data = await getObjectsOfUserTypes({
+            resolveReferences: true,
+            overlayDrafts: true,
+            removeAssets: true,
+            listen: (data) => {
+                data = reduceDataForInitPropsExport(data, dataReduceOptions);
+                updateInitProps(data);
+            }
         });
 
-        // Export the data
-        return exportPages({ data, defaultPathMap, dev, dir, outDir, distDir, buildId });
+        return reduceDataForInitPropsExport(data, dataReduceOptions);
     }
-});
+}));

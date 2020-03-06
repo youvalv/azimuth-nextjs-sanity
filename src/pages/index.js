@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 
 import pageLayouts from '../layouts';
-import getInitialProps from '../utils/ssg-get-initial-props';
+import withSSGPage from '../ssg/ssg-page';
 
 
 class Page extends React.Component {
@@ -12,6 +12,4 @@ class Page extends React.Component {
     }
 }
 
-Page.getInitialProps = getInitialProps;
-
-export default Page;
+export default withSSGPage(Page);
