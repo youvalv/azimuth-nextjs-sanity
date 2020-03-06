@@ -5,50 +5,6 @@ import moment from 'moment-strftime';
 import { Layout } from '../components';
 import { Link, markdownify, postUrl } from '../utils';
 
-export const query = `
-  query BlogQuery($contentfulId: String!) {
-    contentfulConfig {
-      ...LayoutFragment
-    }
-    contentfulBlog(contentful_id: { eq: $contentfulId }) {
-      sys {
-        contentType {
-          sys {
-            id
-          }
-        }
-      }
-      title {
-        title
-      }
-      slug
-    }
-    allContentfulPost(
-      sort: {
-        fields: [date]
-        order: DESC
-      }
-    ) {
-      edges {
-        node {
-          thumb_img_path {
-            file {
-              url
-            }
-          }
-          slug
-          title {
-            title
-          }
-          excerpt {
-            excerpt
-          }
-          date
-        }
-      }
-    }
-  }
-`;
 
 export default class Blog extends React.Component {
     render() {

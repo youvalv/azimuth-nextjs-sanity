@@ -3,6 +3,7 @@ import _ from 'lodash';
 
 import components, { Layout } from '../components';
 
+
 export default class Landing extends React.Component {
 
     render() {
