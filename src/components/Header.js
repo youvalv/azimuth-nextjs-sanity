@@ -17,7 +17,7 @@ export default class Header extends React.Component {
                             {_.get(config, 'header.logo_img') &&
                             <p className="site-logo">
                                 <Link href={safePrefix('/')}>
-                                    <img src={_.get(config, 'header.logo_img.asset.url')} alt="Logo" />
+                                    <img src={_.get(config, 'header.logo_img')} alt="Logo" />
                                 </Link>
                             </p>
                             }

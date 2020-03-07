@@ -19,7 +19,7 @@ export default class Post extends React.Component {
                             </header>
                             {_.has(page, 'image') && (
                                 <div className="post-thumbnail">
-                                    <img src={_.get(page, 'image.asset.url')} alt={_.get(page, 'title')} />
+                                    <img src={_.get(page, 'image')} alt={_.get(page, 'title')} />
                                 </div>
                             )}
                             {_.has(page, 'subtitle') && (

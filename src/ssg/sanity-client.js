@@ -99,12 +99,22 @@ function resolveReferences(data) {
             return cache[id];
         }
         idStack = _.concat(idStack, id);
-        const result = _.cloneDeepWith(item, (value) => {
-            const refId = _.get(value, '_ref');
-            if (refId && _.has(objectsById, refId) && !_.includes(idStack, refId)) {
-                return resolve(_.get(objectsById, refId), idStack);
+        const result = mapDeep(item, (value) => {
+            const type = _.get(value, '_type');
+            if (type === 'slug' && _.has(value, 'current')) {
+                return _.get(value, 'current');
             }
-        });
+            if (type === 'image' && _.has(value, 'asset.url')) {
+                return _.get(value, 'asset.url');
+            }
+            if (type === 'reference' && _.has(value, '_ref')) {
+                const refId = _.get(value, '_ref');
+                if (refId && _.has(objectsById, refId) && !_.includes(idStack, refId)) {
+                    return resolve(_.get(objectsById, refId), idStack);
+                }
+            }
+            return value;
+        }, {postOrder: true});
         cache[id] = result;
         return result;
     }
@@ -135,4 +145,23 @@ function getPureObjectId(srcObjectId) {
 
 function getDraftObjectId(srcObjectId) {
     return isDraftId(srcObjectId) ? srcObjectId : `${DRAFT_ID_PREFIX}${srcObjectId}`;
+}
+
+function mapDeep(value, iteratee, options = {}, _keyPath = [], _objectStack = []) {
+    const postOrder = _.get(options, 'postOrder', false);
+    if (!postOrder) {
+        value = iteratee(value, _keyPath, _objectStack);
+    }
+    const childrenIterator = (val, key) => {
+        return mapDeep(val, iteratee, options, _.concat(_keyPath, key), _.concat(_objectStack, value));
+    };
+    if (_.isPlainObject(value)) {
+        value = _.mapValues(value, childrenIterator);
+    } else if (_.isArray(value)) {
+        value = _.map(value, childrenIterator);
+    }
+    if (postOrder) {
+        value = iteratee(value, _keyPath, _objectStack);
+    }
+    return value;
 }

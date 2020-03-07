@@ -18,7 +18,7 @@ export default class Footer extends React.Component {
                             <div className="widget footer-branding">
                                 {_.get(config, 'footer.logo_img') ?
                                     <p className="site-logo">
-                                        <Link href={safePrefix('/')}><img src={_.get(config, 'footer.logo_img.asset.url')} alt="Logo" /></Link>
+                                        <Link href={safePrefix('/')}><img src={_.get(config, 'footer.logo_img')} alt="Logo" /></Link>
                                     </p>
                                     :
                                     <p className="site-title">

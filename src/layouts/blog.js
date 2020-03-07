@@ -19,7 +19,7 @@ export default class Blog extends React.Component {
                                     <div className="post-card-inside">
                                         {_.has(post, 'thumb_image') && (
                                             <Link href={postUrl(post)} className="post-card-thumbnail">
-                                                <img className="thumbnail" src={_.get(post, 'thumb_image.asset.url')} alt={_.get(post, 'title')} />
+                                                <img className="thumbnail" src={_.get(post, 'thumb_image')} alt={_.get(post, 'title')} />
                                             </Link>
                                         )}
                                         <div className="post-card-content">

@@ -11,10 +11,10 @@ module.exports = withSass(withInitPropsExport({
         // Options to reduce the data to the format expected by exportSSGData
         const dataReduceOptions = {
             pageTypes: [
-                { page: '/', path: '/{slug.current}', predicate: _.matchesProperty('_type', 'landing') },
-                { page: '/', path: '/{slug.current}', predicate: _.matchesProperty('_type', 'page') },
-                { page: '/', path: '/{slug.current}', predicate: _.matchesProperty('_type', 'blog') },
-                { page: '/', path: '/blog/{slug.current}', predicate: _.matchesProperty('_type', 'post') }
+                { page: '/', path: '/{slug}', predicate: _.matchesProperty('_type', 'landing') },
+                { page: '/', path: '/{slug}', predicate: _.matchesProperty('_type', 'page') },
+                { page: '/', path: '/{slug}', predicate: _.matchesProperty('_type', 'blog') },
+                { page: '/', path: '/blog/{slug}', predicate: _.matchesProperty('_type', 'post') }
             ],
             propsMap: {
                 config: { single: true, predicate: _.matchesProperty('_type', 'site_config') },
