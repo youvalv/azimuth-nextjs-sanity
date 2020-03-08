@@ -2,6 +2,8 @@ const React = require('react');
 const _ = require('lodash');
 const { withRouter } = require('next/router');
 
+let initPropsDir = null;
+
 module.exports = function withSSGPage(WrappedComponent, { wsPort = '8088' } = {}) {
 
     class Component extends React.Component {
@@ -46,29 +48,43 @@ module.exports = function withSSGPage(WrappedComponent, { wsPort = '8088' } = {}
     }
 
     Component.getInitialProps = async function getInitialProps(context) {
-        const { pathname, asPath, query, err } = context;
-        // console.log(`getInitialProps, pathname: ${pathname}, asPath: ${asPath}, query:`, query);
+        const { pathname, asPath, query, req } = context;
+        // console.log(`getInitialProps, pathname: '${pathname}', asPath: '${asPath}', query:`, query);
 
-        const isServer = _.get(query, 'isServer');
-        if (isServer) {
-            // we are on server, read initialProps from file
-            const jsonFilePath = _.get(query, 'initPropsFilePath');
+        let urlPath = asPath;
+        // remove query
+        const queryIndex = urlPath.indexOf('?');
+        if (queryIndex >= 0) {
+            urlPath = urlPath.substring(0, queryIndex);
+        }
+        // remove hash
+        const hashIndex = urlPath.indexOf('#');
+        if (hashIndex >= 0) {
+            urlPath = urlPath.substring(0, hashIndex);
+        }
+        urlPath = _.trimEnd(urlPath, '/') + '/init-props.json';
+        // console.log(`getInitialProps, urlPath: '${urlPath}'`);
+
+        if (req) {
+            // We are on server, read initialProps from file /.../nextjs-project/public/init-props/...asPath.../init-props.json
+            // Pages exported from next.config.js via 'exportPathMap' when dev server starts
+            // have 'initPropsDir' property. These pages will be rendered by page component
+            // specified in the exported path map (e.g.: '/' => 'pages/index.js').
+            // Pages created after dev server has been started will not have 'initPropsDir' property as they
+            // weren't exported via 'exportPathMap'. These pages will be dynamically rendered by
+            // page component matching their path (e.g.: 'pages/[...slug].js').
+            // Therefore, first time this function runs, 'initPropsDir' is stored globally, to allow dynamically
+            // rendered pages access the 'initPropsDir'.
+            // Of course, it requires that at least one exported page will be requested first.
+            initPropsDir = initPropsDir || _.get(query, 'initPropsDir');
+            const jsonFilePath = initPropsDir + urlPath;
+            // This will not work for pages created after dev server has been started.
+            // const jsonFilePath = _.get(query, 'initPropsFilePath');
             const fse = require('fs-extra');
             return fse.readJson(jsonFilePath);
         } else {
-            // we are on client, request the data from /...asPath.../init-props.json
-            let url = asPath;
-            const queryIndex = url.indexOf('?');
-            if (queryIndex >= 0) {
-                url = url.substring(0, queryIndex);
-            }
-            const hashIndex = url.indexOf('#');
-            if (hashIndex >= 0) {
-                url = url.substring(0, hashIndex);
-            }
-            url = '/init-props' + _.trimEnd(url, '/') + '/init-props.json';
-            // console.log('init props url', url);
-            return fetch(url).then(response => {
+            // We are on client, request the data from /init-props/...asPath.../init-props.json
+            return fetch('/init-props' + urlPath).then(response => {
                 return response.json();
             }).then(props => {
                 return props;

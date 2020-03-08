@@ -43,7 +43,7 @@ async function exportPages({ data, defaultPathMap, dev, dir, outDir, distDir, bu
 
             pathMap[page.path] = {
                 page: page.pageFilePath,
-                query: _.assign({isServer: true, initPropsFilePath: jsonFilePath})
+                query: _.assign({initPropsDir: initPropsDir, initPropsFilePath: jsonFilePath})
             };
 
             const initialProps = _.assign(
@@ -133,7 +133,7 @@ function generatePathMap({ data, initPropsDir }) {
 
         pathMap[page.path] = {
             page: page.pageFilePath,
-            query: _.assign({isServer: true, initPropsFilePath: jsonFilePath})
+            query: _.assign({initPropsDir: initPropsDir, initPropsFilePath: jsonFilePath})
         };
 
         return pathMap;
