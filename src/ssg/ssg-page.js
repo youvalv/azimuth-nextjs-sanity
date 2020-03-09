@@ -71,8 +71,8 @@ module.exports = function withSSGPage(WrappedComponent, { wsPort = '8088' } = {}
             // have 'initPropsDir' property. These pages will be rendered by page component
             // specified in the exported path map (e.g.: '/' => 'pages/index.js').
             // Pages created after dev server has been started will not have 'initPropsDir' property as they
-            // weren't exported via 'exportPathMap'. These pages will be dynamically rendered by
-            // page component matching their path (e.g.: 'pages/[...slug].js').
+            // weren't exported via 'exportPathMap'. These pages will be rendered by a page component
+            // matched by Dynamic Routes (e.g.: 'pages/[...slug].js').
             // Therefore, first time this function runs, 'initPropsDir' is stored globally, to allow dynamically
             // rendered pages access the 'initPropsDir'.
             // Of course, it requires that at least one exported page will be requested first.

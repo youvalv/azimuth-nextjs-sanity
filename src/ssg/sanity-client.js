@@ -77,11 +77,11 @@ function listenToUserTypes(options, data, callback) {
 }
 
 function processData(data, options = {}) {
-    if (options.resolveReferences) {
-        data = resolveReferences(data);
-    }
     if (options.overlayDrafts) {
         data = overlayDrafts(data);
+    }
+    if (options.resolveReferences) {
+        data = resolveReferences(data);
     }
     if (options.removeAssets) {
         data = _.reject(data, {_type: 'sanity.imageAsset'});
@@ -93,12 +93,12 @@ function resolveReferences(data) {
     const objectsById = _.keyBy(data, '_id');
     const cache = {};
 
-    function resolve(item, idStack = []) {
-        const id = _.get(item, '_id');
-        if (_.has(cache, id)) {
-            return cache[id];
+    function resolveItem(item, idStack = []) {
+        const itemId = getCanonicalObjectId(_.get(item, '_id'));
+        if (_.has(cache, itemId)) {
+            return cache[itemId];
         }
-        idStack = _.concat(idStack, id);
+        idStack = _.concat(idStack, itemId);
         const result = mapDeep(item, (value) => {
             const type = _.get(value, '_type');
             if (type === 'slug' && _.has(value, 'current')) {
@@ -108,19 +108,19 @@ function resolveReferences(data) {
                 return _.get(value, 'asset.url');
             }
             if (type === 'reference' && _.has(value, '_ref')) {
-                const refId = _.get(value, '_ref');
+                const refId = getCanonicalObjectId(_.get(value, '_ref'));
                 if (refId && _.has(objectsById, refId) && !_.includes(idStack, refId)) {
-                    return resolve(_.get(objectsById, refId), idStack);
+                    return resolveItem(_.get(objectsById, refId), idStack);
                 }
             }
             return value;
         }, {postOrder: true});
-        cache[id] = result;
+        cache[itemId] = result;
         return result;
     }
 
     return _.map(data, item => {
-        return resolve(item);
+        return resolveItem(item);
     });
 }
 
@@ -128,19 +128,20 @@ function overlayDrafts(documents) {
     const docGroups = _.groupBy(documents, doc => isDraftId(doc._id) ? 'drafts' : 'published');
     const documentsByPureId = _.keyBy(docGroups.published, '_id');
     _.forEach(docGroups.drafts, doc => {
-        documentsByPureId[getPureObjectId(doc._id)] = doc;
+        documentsByPureId[getCanonicalObjectId(doc._id)] = doc;
     });
     return _.values(documentsByPureId);
 }
 
 const DRAFT_ID_PREFIX = 'drafts.';
+const DRAFT_ID_REGEXP = /^drafts\./;
 
 function isDraftId(srcObjectId) {
     return srcObjectId && srcObjectId.startsWith(DRAFT_ID_PREFIX);
 }
 
-function getPureObjectId(srcObjectId) {
-    return isDraftId(srcObjectId) ? srcObjectId.replace(DRAFT_ID_PREFIX, '') : srcObjectId;
+function getCanonicalObjectId(srcObjectId) {
+    return isDraftId(srcObjectId) ? srcObjectId.replace(DRAFT_ID_REGEXP, '') : srcObjectId;
 }
 
 function getDraftObjectId(srcObjectId) {
