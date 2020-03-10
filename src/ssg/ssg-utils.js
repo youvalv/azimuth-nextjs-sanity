@@ -2,12 +2,12 @@ const util = require('util');
 const _ = require('lodash');
 
 module.exports = {
-    reduceDataForInitPropsExport,
+    reduceAndTransformData,
     reducePageTypes,
     reducePropsMap
 };
 
-function reduceDataForInitPropsExport(data, { pageTypes, propsMap }) {
+function reduceAndTransformData(data, { pageTypes, propsMap }) {
     return {
         props: reducePropsMap(propsMap, data),
         pages: reducePageTypes(pageTypes, data)
@@ -17,7 +17,6 @@ function reduceDataForInitPropsExport(data, { pageTypes, propsMap }) {
 function reducePageTypes(pageTypes, data) {
     return _.reduce(pageTypes, (accum, pageTypeDef) => {
         const pages = _.filter(data, pageTypeDef.predicate);
-        const pageFilePath = pageTypeDef.page || '/';
         const pathTemplate = pageTypeDef.path || '/{slug}';
         return _.reduce(pages, (accum, page) => {
             let path;
@@ -27,7 +26,6 @@ function reducePageTypes(pageTypes, data) {
                 return accum;
             }
             return _.concat(accum, {
-                pageFilePath: pageFilePath,
                 path: path,
                 data: page,
                 props: reducePropsMap(pageTypeDef.propsMap, data)

@@ -5,9 +5,12 @@ const Link = ({ children, href, ...other }) => {
     // Pass Any internal link to Next.js Link, for anything else, use <a> tag
     const internal = /^\/(?!\/)/.test(href);
 
+    // For root page, use index.js, for rest use [...slug].js
+    const page = href === '/' ? '/' : '/[...slug]';
+
     if (internal) {
         return (
-            <NextLink href={'/'} as={href}>
+            <NextLink href={page} as={href}>
                 <a {...other}>{children}</a>
             </NextLink>
         );
