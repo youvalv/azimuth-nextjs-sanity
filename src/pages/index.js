@@ -2,7 +2,8 @@ import React from 'react';
 import _ from 'lodash';
 
 import pageLayouts from '../layouts';
-import cmsClient from '../ssg/cms-client';
+import removeDataClient from '../ssg/remote-data-client';
+import { withRemoteDataUpdates } from '../ssg/with-remote-data-updates';
 
 
 class Page extends React.Component {
@@ -16,8 +17,8 @@ class Page extends React.Component {
 
 export async function getStaticProps({ params }) {
     console.log('Page [index] getStaticProps, params: ', params);
-    const props = await cmsClient.getStaticPropsForPageAtPath('/');
-    return { props: props };
+    const props = await removeDataClient.getStaticPropsForPageAtPath('/');
+    return { props };
 }
 
-export default Page;
+export default withRemoteDataUpdates(Page);

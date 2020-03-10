@@ -1,10 +1,16 @@
 const util = require('util');
+const path = require('path');
+const fse = require('fs-extra');
+const WebSocket = require('ws');
+const { EventEmitter } = require('events');
 const _ = require('lodash');
+
 
 module.exports = {
     reduceAndTransformData,
     reducePageTypes,
-    reducePropsMap
+    reducePropsMap,
+    withRemoteDataUpdates
 };
 
 function reduceAndTransformData(data, { pageTypes, propsMap }) {
@@ -58,4 +64,58 @@ function interpolatePagePath(pathTemplate, page) {
     }
 
     return path;
+}
+
+const eventEmitter = new EventEmitter();
+const PROPS_CHANGED_EVENT = 'propsChanged';
+
+function startStaticPropsWatcher({ wsPort }) {
+    const wss = new WebSocket.Server({ port: wsPort });
+
+    wss.on('connection', (ws) => {
+        console.log('[data-listener] websocket connected');
+        ws.on('message', (message) => {
+            console.log('[data-listener] websocket received message:', message);
+        });
+        ws.on('close', () => {
+            console.log('[data-listener] websocket disconnected');
+        });
+        eventEmitter.on(PROPS_CHANGED_EVENT, () => {
+            console.log(`[data-listener] websocket send '${PROPS_CHANGED_EVENT}'`);
+            ws.send(PROPS_CHANGED_EVENT);
+        });
+    });
+}
+
+function withRemoteDataUpdates(nextConfig) {
+    if (!_.isFunction(nextConfig.fetchRemoteData)) {
+        throw new Error('withStaticPropsUpdates error: fetchInitialData function must be provided when using withStaticPropsUpdates');
+    }
+
+    const cacheFilePath = _.get(nextConfig, 'cacheFilePath', path.join(process.cwd(), '.remoteDataCache', 'data.json'));
+    const wsPort = _.get(nextConfig, 'liveUpdateWsPort', 8088);
+    const liveUpdate = _.get(nextConfig, 'liveUpdateOnRemoteDataChange', false);
+
+    if (liveUpdate) {
+        startStaticPropsWatcher({ wsPort: wsPort });
+    }
+
+    async function updateRemoteData(data) {
+        console.log(`[ssg-utils] update static props`);
+        if (liveUpdate) {
+            _.set(data, 'props.liveUpdateOnRemoteDataChange', true);
+            _.set(data, 'props.liveUpdateWsPort', wsPort);
+        }
+        await fse.ensureFile(cacheFilePath);
+        await fse.writeJson(cacheFilePath, data);
+        eventEmitter.emit(PROPS_CHANGED_EVENT);
+    }
+
+    nextConfig.fetchRemoteData({ updateRemoteData }).then(async (data) => {
+        // first time the data is fetched, clean the .cache folder
+        await fse.remove(path.dirname(cacheFilePath));
+        await updateRemoteData(data);
+    });
+
+    return nextConfig;
 }
