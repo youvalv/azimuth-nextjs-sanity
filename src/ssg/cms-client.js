@@ -7,28 +7,46 @@ const { reduceAndTransformData } = require('./ssg-utils');
 class CMSClient {
 
     constructor() {
-        console.log('Client constructor');
+        console.log('CMSClient constructor');
         this.data = null;
+        this.fetchPromise = null;
     }
 
     async getData() {
+        if (this.fetchPromise) {
+            console.log('CMSClient getData, fetchInProgress, return promise');
+            return this.fetchPromise;
+        }
         if (this.data) {
-            console.log('Client getData, has cached data, return it');
+            console.log('CMSClient getData, has cached data, return it');
             return this.data;
         }
-        console.log('Client getData, has no cached data, fetch data from CMS');
-        this.data = await this.fetchDataFromCMS();
+        console.log('CMSClient getData, has no cached data, fetch data from CMS');
+        let resolve;
+        let reject;
+        this.fetchPromise = new Promise((_resolve, _reject) => {
+            resolve = _resolve;
+            reject = _reject;
+        });
+        try {
+            this.data = await this.fetchDataFromCMS();
+        } catch (e) {
+            reject(e);
+            throw e;
+        }
+        this.fetchPromise = null;
+        resolve(this.data);
         return this.data;
     }
 
     async getStaticPaths() {
-        console.log('Client getStaticPaths');
+        console.log('CMSClient getStaticPaths');
         const data = await this.getData();
         return this.getPathsFromCMSData(data);
     }
 
     async getStaticPropsForPageAtPath(pagePath) {
-        console.log('Client getStaticPropsForPath');
+        console.log('CMSClient getStaticPropsForPath');
         const data = await this.getData();
         return this.getPropsFromCMSDataForPagePath(data, pagePath);
     }

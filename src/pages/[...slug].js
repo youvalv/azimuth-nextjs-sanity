@@ -17,14 +17,18 @@ class Page extends React.Component {
 export async function getStaticPaths() {
     console.log('Page [...slug].js getStaticPaths');
     const paths = await cmsClient.getStaticPaths();
-    return { paths, fallback: true }
+    return { paths, fallback: false };
 }
 
 export async function getStaticProps({ params }) {
     console.log('Page [...slug].js getStaticProps, params: ', params);
     const pagePath = '/' + params.slug.join('/');
     const props = await cmsClient.getStaticPropsForPageAtPath(pagePath);
-    return { props };
+    // If not using JSON.parse(JSON.stringify(props)), next.js throws following error when running "next build"
+    // Error occurred prerendering page "/blog/design-team-collaborates". Read more: https://err.sh/next.js/prerender-error:
+    // Error: Error serializing `.posts[4]` returned from `getStaticProps` in "/[...slug]".
+    // Reason: Circular references cannot be expressed in JSON.
+    return { props: JSON.parse(JSON.stringify(props)) };
 }
 
 export default Page;
