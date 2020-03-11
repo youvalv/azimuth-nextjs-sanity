@@ -1,8 +1,23 @@
-This is an implementation of Stackbit's Azimuth theme on top of [Next.js](https://nextjs.org/). The site is built statically,
-and it can be hosted in serverless environment, such as [Netlify](https://www.netlify.com). The content of the site
-is powered by [Sanity.io](https://www.sanity.io/) and provided to the built script at the build time.
+This is an implementation of Stackbit's Azimuth theme on top of [Next.js](https://nextjs.org/).
+The site is intended to be built statically and hosted on a CDN like environment,
+such as [Netlify](https://www.netlify.com). The content of the site is hosted by
+[Sanity.io](https://www.sanity.io/) Headless CMS and provided to the built script
+at the build time. Once site has been built and deployed, it does not call any
+API requests, all pages are pre-rendered and hosted by CDN.
+
+In addition, Next.js [SSG support](https://nextjs.org/blog/next-9-3#next-gen-static-site-generation-ssg-support)
+has been leveraged to support client side rendering when navigating the internal
+links of the site.
+
+[Sourcebit](https://github.com/stackbithq/sourcebit) and its plugins, specifically
+[`sourcebit-source-sanity`](https://github.com/stackbithq/sourcebit-source-sanity)
+and [sourcebit-target-next](https://github.com/stackbithq/sourcebit-target-next),
+are used to fetch and normalize the data from Sanity and provide it to Next.js
+pages. It also sets up live updates in development mode allowing to update the
+content in CMS and instantly see them in browser.
 
 [Site demo](https://azimuth-nextjs-sanity.netlify.com/)
+
 
 ## Getting Started
 
