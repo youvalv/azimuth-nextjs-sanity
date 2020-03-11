@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "fetch": "sourcebit fetch",
     "build": "next build",
     "export": "next build && next export",
     "start": "next start"
@@ -23,6 +24,9 @@
     "react-dom": "16.12.0",
     "react-html-parser": "^2.0.2",
     "react-script-tag": "^1.1.2",
+    "sourcebit": "^0.7.1",
+    "sourcebit-source-sanity": "^0.1.1",
+    "sourcebit-target-next": "^0.1.0",
     "ws": "^7.2.1"
   }
 }

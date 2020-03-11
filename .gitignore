@@ -24,6 +24,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Sourcebit
+.sourcebit-cache.json
+.sourcebit-nextjs-cache.json
+
 /.idea
 /public/init-props
-/.remoteDataCache
+
