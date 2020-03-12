@@ -83,15 +83,16 @@ content in CMS and instantly see them in browser.
    export SANITY_TOKEN=<your sanity read write token>
    ```
 
-10. Lastly, run the development server:
+10. Lastly, run the development server (from project folder):
 
-   ```
-   npm run dev
-   ```
+    ```
+    cd ..
+    npm run dev
+    ```
 
-   Navigate [http://localhost:3000](http://localhost:3000) to see the site.
-   You can edit the site contents in Sanity studio and the browser will
-   live-update your changes.
+    Navigate [http://localhost:3000](http://localhost:3000) to see the site.
+    You can edit the site contents in Sanity studio and the browser will
+    live-update your changes.
 
 ## Building for production
 
