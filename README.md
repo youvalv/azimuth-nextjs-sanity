@@ -21,32 +21,77 @@ content in CMS and instantly see them in browser.
 
 ## Getting Started
 
-First, sign up to [Sanity.io](https://www.sanity.io/) and create a new project.
-Then [import](https://www.sanity.io/docs/importing-data) `sanity-export/export.ndjson` into the created project:
+1. Install dependencies
 
-```
-sanity dataset import ./sanity-export/export.ndjson production
-```
+   ```
+   run npm install
+   ```
 
-After importing the project, define following environment variables to allow Sanity client to fetch the roject content
-when developing or building the site. You will need to create "read-write" token in your Sanity project settings page 
-(https://manage.sanity.io/projects/__PROJECT_ID__/settings/api)
+2. Sign up to [Sanity.io](https://www.sanity.io/)
 
-```
-export SANITY_PROJECT_ID=<your sanity project id>
-export SANITY_DATASET=production
-export SANITY_TOKEN=<your sanity read write token>
-```
+3. Install Sanity CLI
 
-Lastly, run the development server:
+   ```
+   npm install -g @sanity/cli
+   ```
 
-```bash
-npm run dev
-```
+4. [Create a Sanity project](https://www.sanity.io/docs/getting-started-with-sanity-cli#bootstrap-a-project-97220f7a595a)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   ```
+   sanity init \
+     --create-project "Sanity Demo Project" \
+     --dataset production \
+     --output-path sanity \
+     --template clean
+   ```
 
-You can start editing the code in `src` folder. The site auto-updates as you edit the code.
+5. Copy site schemas to created sanity project
+
+   ```
+   cp -R sanity-export/schemas sanity
+   ```
+
+6. [import](https://www.sanity.io/docs/importing-data) demo dataset into the created project:
+ 
+   ```
+   cd sanity
+   sanity dataset import ../sanity-export/export production
+   ```
+
+7. Install sanity markdown plugin (from "sanity" folder)
+
+   ```
+   sanity install markdown
+   ```
+
+8. Start sanity Studio (from "sanity" folder)
+
+   ```
+   sanity start
+   ```
+   
+   Sanity studio will be available at http://localhost:3333
+
+9. After importing the project, define following environment variables to allow
+   Sourcebit to fetch the content from Sanity when developing or building the site.
+   You will need to create "read-write" token in your Sanity project settings page 
+   (https://manage.sanity.io/projects/__PROJECT_ID__/settings/api)
+
+   ```
+   export SANITY_PROJECT_ID=<your sanity project id>
+   export SANITY_DATASET=production
+   export SANITY_TOKEN=<your sanity read write token>
+   ```
+
+10. Lastly, run the development server:
+
+   ```
+   npm run dev
+   ```
+
+   Navigate [http://localhost:3000](http://localhost:3000) to see the site.
+   You can edit the site contents in Sanity studio and the browser will
+   live-update your changes.
 
 ## Building for production
 

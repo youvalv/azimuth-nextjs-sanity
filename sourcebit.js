@@ -7,7 +7,7 @@ const isDev = process.env.NODE_ENV === 'development';
 module.exports = {
     plugins: [
         {
-            module: require('../sourcebit-source-sanity'),
+            module: require('sourcebit-source-sanity'),
             options: {
                 accessToken: process.env.SANITY_TOKEN,
                 projectId: process.env.SANITY_PROJECT_ID,
