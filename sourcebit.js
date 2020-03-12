@@ -37,13 +37,13 @@ module.exports = {
         {
             module: require('sourcebit-target-next'),
             options: {
-                pageTypes: [
+                pages: [
                     { path: '/{slug}', predicate: _.matchesProperty('_type', 'landing') },
                     { path: '/{slug}', predicate: _.matchesProperty('_type', 'page') },
                     { path: '/{slug}', predicate: _.matchesProperty('_type', 'blog') },
                     { path: '/blog/{slug}', predicate: _.matchesProperty('_type', 'post') }
                 ],
-                propsMap: {
+                commonProps: {
                     config: { single: true, predicate: _.matchesProperty('_type', 'site_config') },
                     posts: { predicate: _.matchesProperty('_type', 'post') }
                 }
