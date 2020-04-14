@@ -37,6 +37,7 @@ module.exports = {
         {
             module: require('sourcebit-target-next'),
             options: {
+                liveUpdate: isDev,
                 pages: [
                     { path: '/{slug}', predicate: _.matchesProperty('_type', 'landing') },
                     { path: '/{slug}', predicate: _.matchesProperty('_type', 'page') },

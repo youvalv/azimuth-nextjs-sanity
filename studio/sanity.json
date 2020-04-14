@@ -1,12 +1,31 @@
 {
   "root": true,
+  "api": {
+    "projectId": "9vzhtemc",
+    "dataset": "staging"
+  },
   "project": {
     "name": "Azimuth Nextjs Sanity"
   },
-  "api": {
-    "projectId": "9vzhtemc",
-    "dataset": "production"
-  },
+  "__experimental_spaces": [
+    {
+      "name": "production",
+      "title": "Prod",
+      "default": true,
+      "api": {
+        "projectId": "9vzhtemc",
+        "dataset": "production"
+      }
+    },
+    {
+      "name": "staging",
+      "title": "Staging",
+      "api": {
+        "projectId": "9vzhtemc",
+        "dataset": "staging"
+      }
+    }
+  ],
   "plugins": [
     "@sanity/base",
     "@sanity/components",
