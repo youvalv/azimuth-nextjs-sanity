@@ -115,3 +115,4 @@ To learn more about Sanity, take a look at the following resources:
 
 - [Sanity Docs](https://www.sanity.io/docs)
 - [Sanity Reference](https://www.sanity.io/docs/reference)
+
