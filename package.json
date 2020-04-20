@@ -26,7 +26,7 @@
     "react-script-tag": "^1.1.2",
     "sourcebit": "^0.8.0",
     "sourcebit-source-sanity": "^0.2.0",
-    "sourcebit-target-next": "^0.3.1",
+    "sourcebit-target-next": "^0.3.2",
     "ws": "^7.2.1"
   }
 }
