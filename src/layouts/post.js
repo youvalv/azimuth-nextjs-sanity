@@ -27,6 +27,11 @@ export default class Post extends React.Component {
                                     {_.get(page, 'subtitle')}
                                 </div>
                             )}
+                            {_.has(page, 'author') && (
+                                <div className="post-meta">
+                                    By {_.get(page, 'author.first_name') + ' ' + _.get(page, 'author.last_name', '')}
+                                </div>
+                            )}
                             {_.has(page, 'content') && (
                                 <div className="post-content">
                                     {markdownify(_.get(page, 'content'))}

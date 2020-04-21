@@ -28,6 +28,13 @@ export default {
       validation: Rule => Rule.required()
     },
     {
+      type: 'reference',
+      title: 'Author',
+      name: 'author',
+      description: 'The author of the post',
+      to: [{type: 'person'}]
+    },
+    {
       type: 'text',
       title: 'Subtitle',
       name: 'subtitle',

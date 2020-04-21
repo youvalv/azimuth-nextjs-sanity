@@ -40,6 +40,7 @@ export default (props) => {
                                     <footer className="post-meta">
                                         <time className="published"
                                               dateTime={moment(_.get(post, 'date')).strftime('%Y-%m-%d %H:%M')}>{moment(_.get(post, 'date')).strftime('%B %d, %Y')}</time>
+                                        {_.has(post, 'author') && ( ' By ' + _.get(post, 'author.first_name') + ' ' + _.get(post, 'author.last_name', ''))}
                                     </footer>
                                 </div>
                             </div>
