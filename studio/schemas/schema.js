@@ -6,6 +6,7 @@ import schemaTypes from 'all:part:@sanity/base/schema-type';
 
 import action from './action';
 import person from './person';
+import blog_category from './blog_category';
 import landing from './landing';
 import section_contact from './section_contact';
 import section_content from './section_content';
@@ -40,6 +41,7 @@ export default createSchema({
     post,
     action,
     person,
+    blog_category,
     section_contact,
     section_content,
     section_cta,

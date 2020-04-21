@@ -41,6 +41,9 @@ export default class Post extends React.Component {
                                 <time className="published" dateTime={moment(_.get(page, 'date')).strftime('%Y-%m-%d %H:%M')}>
                                     {moment(_.get(page, 'date')).strftime('%A, %B %e, %Y')}
                                 </time>
+                                {_.has(page, 'categories') && !_.isEmpty(_.get(page, 'categories')) && (
+                                    <div>Categories: {_.get(page, 'categories').map(category => category.title).join(', ')}</div>
+                                )}
                             </footer>
                         </article>
                     </div>
