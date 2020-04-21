@@ -1,9 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
-import moment from 'moment-strftime';
 
 import { Layout } from '../components';
 import { Link, markdownify, postUrl } from '../utils';
+import PostFooter from '../components/PostFooter';
 
 
 export default class Blog extends React.Component {
@@ -31,11 +31,7 @@ export default class Blog extends React.Component {
                                             <div className="post-excerpt">
                                                 {markdownify(_.get(post, 'excerpt'))}
                                             </div>
-                                            <footer className="post-meta">
-                                                <time className="published" dateTime={moment(_.get(post, 'date')).strftime('%Y-%m-%d %H:%M')}>
-                                                    {moment(_.get(post, 'date')).strftime('%B %d, %Y')}
-                                                </time>
-                                            </footer>
+                                            <PostFooter post={post}/>
                                         </div>
                                     </div>
                                 </article>

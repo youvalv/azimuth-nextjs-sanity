@@ -1,9 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
-import moment from 'moment-strftime';
 
 import { Layout } from '../components';
 import { markdownify } from '../utils';
+import PostFooter from '../components/PostFooter';
 
 
 export default class Post extends React.Component {
@@ -27,24 +27,12 @@ export default class Post extends React.Component {
                                     {_.get(page, 'subtitle')}
                                 </div>
                             )}
-                            {_.has(page, 'author') && (
-                                <div className="post-meta">
-                                    By {_.get(page, 'author.first_name') + ' ' + _.get(page, 'author.last_name', '')}
-                                </div>
-                            )}
                             {_.has(page, 'content') && (
                                 <div className="post-content">
                                     {markdownify(_.get(page, 'content'))}
                                 </div>
                             )}
-                            <footer className="post-meta">
-                                <time className="published" dateTime={moment(_.get(page, 'date')).strftime('%Y-%m-%d %H:%M')}>
-                                    {moment(_.get(page, 'date')).strftime('%A, %B %e, %Y')}
-                                </time>
-                                {_.has(page, 'categories') && !_.isEmpty(_.get(page, 'categories')) && (
-                                    <div>Categories: {_.get(page, 'categories').map(category => category.title).join(', ')}</div>
-                                )}
-                            </footer>
+                            <PostFooter post={page} dateFormat='%A, %B %e, %Y'/>
                         </article>
                     </div>
                 </div>
