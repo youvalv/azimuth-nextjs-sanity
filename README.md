@@ -55,7 +55,7 @@ content in CMS and instantly see them in browser.
  
    ```
    cd sanity
-   sanity dataset import ../sanity-export/export production
+   sanity dataset import ../sanity-export/export.tar.gz production
    ```
 
 7. Install sanity markdown plugin (from "sanity" folder)
@@ -115,3 +115,4 @@ To learn more about Sanity, take a look at the following resources:
 
 - [Sanity Docs](https://www.sanity.io/docs)
 - [Sanity Reference](https://www.sanity.io/docs/reference)
+

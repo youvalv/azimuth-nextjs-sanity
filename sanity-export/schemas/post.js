@@ -28,6 +28,25 @@ export default {
       validation: Rule => Rule.required()
     },
     {
+      type: 'reference',
+      title: 'Author',
+      name: 'author',
+      description: 'The author of the post',
+      to: [{type: 'person'}]
+    },
+    {
+      type: 'array',
+      title: 'Categories',
+      name: 'categories',
+      description: 'Categories this blog relate to',
+      of: [
+        {
+          type: 'reference',
+          to: [{type: 'blog_category'}]
+        }
+      ]
+    },
+    {
       type: 'text',
       title: 'Subtitle',
       name: 'subtitle',
