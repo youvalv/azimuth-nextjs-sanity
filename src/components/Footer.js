@@ -31,6 +31,9 @@ export default class Footer extends React.Component {
                                 </p>
                                 }
                             </div>
+                            {_.get(config, 'custom_object.question') && (<div>
+                                q: {_.get(config, 'custom_object.question')} a: {_.get(config, 'custom_object.answer')}
+                            </div>)}
                             {((_.get(config, 'footer.nav_links') && _.get(config, 'footer.has_nav')) || _.get(config, 'footer.has_social')) &&
                             <nav className="widget footer-navigation">
                                 <div className="footer-nav-inside">
