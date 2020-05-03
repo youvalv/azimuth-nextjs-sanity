@@ -42,7 +42,7 @@ export default {
                 name: 'question'
             },
             {
-                type: 'markdown',
+                type: 'text',
                 title: 'Answer',
                 name: 'answer'
             }
@@ -62,7 +62,7 @@ export default {
                       name: 'company_name'
                   },
                   {
-                      type: 'markdown',
+                      type: 'text',
                       title: 'Company description',
                       name: 'company_description'
                   }
