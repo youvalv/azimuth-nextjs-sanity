@@ -26,6 +26,8 @@ are used to fetch and normalize the data from Sanity and provide it to Next.js
 pages. It also sets up live updates in development mode allowing to update the
 content in CMS and instantly see them in browser.
 
+![Sourcebit Nextjs Sanity Diagram](docs/nextjs-sourcebit-sanity-diagram.png)
+
 [Site demo](https://azimuth-nextjs-sanity.netlify.com/)
 
 
