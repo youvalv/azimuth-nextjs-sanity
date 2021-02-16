@@ -1,37 +1,19 @@
 {
   "root": true,
-  "api": {
-    "projectId": "9vzhtemc",
-    "dataset": "staging"
-  },
   "project": {
-    "name": "Azimuth Nextjs Sanity"
+    "name": "azimuth-nextjs-sanity"
   },
-  "__experimental_spaces": [
-    {
-      "name": "production",
-      "title": "Prod",
-      "default": true,
-      "api": {
-        "projectId": "9vzhtemc",
-        "dataset": "production"
-      }
-    },
-    {
-      "name": "staging",
-      "title": "Staging",
-      "api": {
-        "projectId": "9vzhtemc",
-        "dataset": "staging"
-      }
-    }
-  ],
+  "api": {
+    "projectId": "SANITY_PROJECT_ID",
+    "dataset": "production"
+  },
   "plugins": [
     "@sanity/base",
     "@sanity/components",
     "@sanity/default-layout",
     "@sanity/default-login",
     "@sanity/desk-tool",
+    "@sanity/color-input",
     "markdown"
   ],
   "env": {
@@ -45,6 +27,10 @@
     {
       "name": "part:@sanity/base/schema",
       "path": "./schemas/schema.js"
+    },
+    {
+      "name": "part:@sanity/desk-tool/structure",
+      "path": "./deskStructure.js"
     }
   ]
 }

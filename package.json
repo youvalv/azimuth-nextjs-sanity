@@ -10,7 +10,6 @@
     "start": "next start"
   },
   "dependencies": {
-    "@sanity/client": "^1.148.3",
     "@zeit/next-sass": "^1.0.1",
     "classnames": "^2.2.6",
     "fs-extra": "^8.1.0",
@@ -28,5 +27,11 @@
     "sourcebit-source-sanity": "^0.3.1",
     "sourcebit-target-next": "^0.3.3",
     "ws": "^7.2.1"
+  },
+  "devDependencies": {
+    "@sanity/client": "^1.150.7",
+    "@sanity/export": "^2.2.6",
+    "@sanity/import": "^2.2.6",
+    "configstore": "^5.0.1"
   }
 }

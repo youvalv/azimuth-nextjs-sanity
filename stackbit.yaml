@@ -1,0 +1,38 @@
+# for more info about stackbit.yaml configuration visit https://www.stackbit.com/docs/stackbit-yaml/
+stackbitVersion: ~0.3.0
+ssgName: nextjs
+cmsName: sanity
+
+# buildCommand and publishDir are used to configure serverless deployment
+# platform when Stackbit creates a new site from this theme.
+buildCommand: npm run export
+publishDir: out
+
+# the "import" object defines how Stackbit should provision Sanity when creating
+# a new site from this theme via https://app.stackbit.com/create.
+import:
+  type: sanity
+  contentFile: sanity-export/export.json
+  sanityStudioPath: studio
+  deployStudio: true
+  deployGraphql: true
+  projectIdEnvVar: SANITY_PROJECT_ID
+  datasetEnvVar: SANITY_DATASET
+  tokenEnvVar: SANITY_TOKEN
+
+# To allow page creation and duplication in Stackbit Studio, and other advanced
+# editing capabilities specify which which models describe pages and specify
+# their "urlPath". The urlPath should have the same logic as defined in sourcebit.js
+models:
+  page:
+    type: page
+    urlPath: '/{slug}'
+  post:
+    type: page
+    urlPath: '/blog/{slug}'
+  advanced:
+    type: page
+    urlPath: '/{slug}'
+  blog_category:
+    type: page
+    urlPath: '/blog/category/{slug}'
