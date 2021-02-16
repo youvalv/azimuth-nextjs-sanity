@@ -30,44 +30,6 @@ export default {
       type: 'footer',
       title: 'Footer Configuration',
       name: 'footer'
-    },
-    {
-        type: 'object',
-        title: 'Custom Object',
-        name: 'custom_object',
-        fields: [
-            {
-                type: 'text',
-                title: 'Question',
-                name: 'question'
-            },
-            {
-                type: 'text',
-                title: 'Answer',
-                name: 'answer'
-            }
-        ]
-    },
-      {
-          type: 'array',
-          title: 'Partner companies',
-          name: 'partner_companies',
-          of: [{
-              type: 'object',
-              name: 'company_model',
-              fields: [
-                  {
-                      type: 'text',
-                      title: 'Company name',
-                      name: 'company_name'
-                  },
-                  {
-                      type: 'text',
-                      title: 'Company description',
-                      name: 'company_description'
-                  }
-              ]
-          }]
-      }
+    }
   ]
 }

@@ -15,7 +15,7 @@ import:
   contentFile: sanity-export/export.json
   sanityStudioPath: studio
   deployStudio: true
-  deployGraphql: true
+  deployGraphql: false
   projectIdEnvVar: SANITY_PROJECT_ID
   datasetEnvVar: SANITY_DATASET
   tokenEnvVar: SANITY_TOKEN
