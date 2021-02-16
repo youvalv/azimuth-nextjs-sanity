@@ -5,7 +5,7 @@ cmsName: sanity
 
 # buildCommand and publishDir are used to configure serverless deployment
 # platform when Stackbit creates a new site from this theme.
-buildCommand: npm run export
+buildCommand: npm run build
 publishDir: out
 
 # the "import" object defines how Stackbit should provision Sanity when creating

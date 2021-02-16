@@ -5,12 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "fetch": "sourcebit fetch",
-    "build": "next build",
-    "export": "next build && next export",
+    "build": "next build && next export",
     "start": "next start"
   },
   "dependencies": {
-    "@zeit/next-sass": "^1.0.1",
     "classnames": "^2.2.6",
     "fs-extra": "^9.1.0",
     "lodash": "^4.17.20",
@@ -26,6 +24,7 @@
     "sourcebit": "^0.10.0",
     "sourcebit-source-sanity": "^0.4.3",
     "sourcebit-target-next": "^0.5.2",
+    "webpack": "^5.22.0",
     "ws": "^7.4.3"
   },
   "devDependencies": {

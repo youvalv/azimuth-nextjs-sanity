@@ -1,10 +1,9 @@
 import React from 'react';
 import Head from 'next/head';
 import Router from 'next/router';
-import ScriptTag from 'react-script-tag';
+// import ScriptTag from 'react-script-tag';
 import _ from 'lodash';
 
-import '../sass/main.scss';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -74,7 +73,7 @@ export default class Body extends React.Component {
                         {this.props.children}
                     </main>
                     <Footer {...this.props} />
-                    <ScriptTag src="/js/plugins.js"/>
+                    <script src="/js/plugins.js"/>
                 </div>
             </React.Fragment>
         );

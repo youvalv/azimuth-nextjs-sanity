@@ -160,7 +160,7 @@ To contribute to this theme please follow the following steps:
 
 To build a static site for production, run the following command
 
-    npm run export
+    npm run build
 
 The exported site will be written to `out` folder. The contents of this folder 
 can be deployed by serverless deployment platform such as [Netlify](https://www.netlify.com).
