@@ -92,6 +92,8 @@ If you need a hand, make sure to check the [Stackbit support page](https://stack
 
 To contribute to this theme please follow the following steps:
 
+1. Clone this repository locally
+
 1. Install Sanity CLI
 
         npm install -g @sanity/cli
