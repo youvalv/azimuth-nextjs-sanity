@@ -1,37 +1,63 @@
 # ✨ Azimuth Nextjs Sanity Theme ✨
 
-This is "Azimuth" [Next.js](https://nextjs.org/) theme powered by [Sanity](https://www.sanity.io).
+This Stackbit's "Azimuth" theme built with [Next.js](https://nextjs.org/) and powered by [Sanity](https://www.sanity.io).
 
-Click the button below to use this theme to create a new site using the Stackbit:
+Click the button below to create a new website from this theme using Stackbit:
 
 [![Create with Stackbit](https://assets.stackbit.com/badge/create-with-stackbit.svg)](https://app.stackbit.com/create?theme=https://github.com/stackbit-themes/azimuth-nextjs-sanity&utm_source=theme-readme&utm_medium=referral&utm_campaign=stackbit_themes)
 
 ![Azimuth Nextjs Sanity Theme screenshot](https://themes.stackbit.com/images/azimuth-demo-1024x768.png)
 
-The theme can be used to create a static website and hosted by a serverless
+The theme can be used to create a static website that is hosted by a serverless
 deployment platform such as [Netlify](https://www.netlify.com). The contents of
-the site are stored in [Sanity.io](https://www.sanity.io/) Headless CMS and
-provided to the built script at the build time. Once site has been built and
-deployed, it does not call any API requests, all pages are pre-rendered and
-hosted via CDN.
+the website are stored in [Sanity.io](https://www.sanity.io/), a Headless CMS.
 
-In addition, Next.js [SSG support](https://nextjs.org/blog/next-9-3#next-gen-static-site-generation-ssg-support)
-has been leveraged to support client side rendering when navigating the internal
-links of the site.
+When deploying the website, [Sourcebit](https://github.com/stackbithq/sourcebit)
+fetches the site's contents from Sanity and provides it to Next.js. Once Next.js
+finishes generating the static website, [Netlify](https://www.netlify.com) pushes
+the static files to its CDN.
+
+<p align="center">
+  <img width="322" height="823" src="docs/nextjs-sourcebit-sanity-diagram.png">
+</p>
 
 [Sourcebit](https://github.com/stackbithq/sourcebit) and its plugins, specifically
 [`sourcebit-source-sanity`](https://github.com/stackbithq/sourcebit-source-sanity)
 and [sourcebit-target-next](https://github.com/stackbithq/sourcebit-target-next),
-are used to fetch and normalize the data from Sanity and provide it to Next.js
-pages. It also sets up live updates in development mode allowing to update the
-content in CMS and instantly see them in browser.
+are used to fetch website contents from Sanity, normalize it, and provide it to
+Next.js pages. It also sets up live updates in development mode allowing to
+update the content in CMS and instantly see them in the browser.
 
-![Sourcebit Nextjs Sanity Diagram](docs/nextjs-sourcebit-sanity-diagram.png)
+The Next.js [SSG support](https://nextjs.org/blog/next-9-3#next-gen-static-site-generation-ssg-support)
+has been leveraged to support client side rendering when navigating the internal
+links of the site.
 
 [Site demo](https://azimuth-nextjs-sanity.netlify.com/)
 
 
-## Editing Content
+## Quick Start 🏎
+
+[Create a site](https://app.stackbit.com/create?theme=https://github.com/stackbit-themes/azimuth-nextjs-sanity&utm_source=theme-readme&utm_medium=referral&utm_campaign=stackbit_themes) from this theme using Stackbit.
+
+Stackbit will execute following steps for you
+
+- Create a new GitHub repository with the contents of this repository.
+- Create a new [Sanity](https://www.sanity.io) project.
+- Deploy the [Sanity Studio](https://www.sanity.io/studio).
+- Create [Netlify](https://www.netlify.com) site connected to the GitHub repo
+- Deploy the Netlify site.
+- Create a Stackbit project that will allow you edit your website via on-page
+  visual editing experience. 
+
+Additionally, Stackbit will connect all services together:
+
+- Create a "commit" webhook in GitHub that will trigger Netlify deployment as
+  soon as new commit is pushed to GitHub.
+- Create a "publish" webhook in Sanity that will trigger Netlify deployment as
+  soon as content is published in Sanity.
+
+
+## Editing Content 📝
 
 Once Stackbit creates a site, you can start editing the content using the free
 on-page editing experience provided by the [Stackbit Studio](https://stackbit.com?utm_source=project-readme&utm_medium=referral&utm_campaign=user_themes).
@@ -49,11 +75,9 @@ Here's a few resources to get you started:
 If you need a hand, make sure to check the [Stackbit support page](https://stackbit.link/project-readme-support).
 
 
-## Develop Locally
+## Develop Locally 🛠
 
 1. [Create a site](https://app.stackbit.com/create?theme=https://github.com/stackbit-themes/azimuth-nextjs-sanity&utm_source=theme-readme&utm_medium=referral&utm_campaign=stackbit_themes) from this theme using Stackbit.
-
-1. Stackbit will create a new GitHub repository, a [Sanity](https://www.sanity.io) project, and deploy the site via the selected serverless deployment platform (e.g., [Netlify](https://www.netlify.com)).
 
 1. Once finished, you will be redirected to Stackbit Studio where you will be
    able to edit the content using the free on-page editing experience, and

@@ -31,7 +31,7 @@ async function createProject({ projectName, dataset, token }) {
     console.log('created a project, projectId:', project.id);
 
     console.log('creating a dataset...');
-    const datasetRes = await client.request({
+    await client.request({
         url: `/projects/${project.id}/datasets/${dataset}`,
         method: 'PUT',
         body: {
