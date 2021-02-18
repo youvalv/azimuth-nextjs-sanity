@@ -4,8 +4,11 @@ This Stackbit's "Azimuth" theme built with [Next.js](https://nextjs.org/) and po
 
 Click the button below to create a new website from this theme using Stackbit:
 
-[![Create with Stackbit](https://assets.stackbit.com/badge/create-with-stackbit.svg)](https://app.stackbit.com/create?theme=https://github.com/stackbit-themes/azimuth-nextjs-sanity&utm_source=theme-readme&utm_medium=referral&utm_campaign=stackbit_themes)
+<p align="center">
+  <a href="https://app.stackbit.com/create?theme=https://github.com/stackbit-themes/azimuth-nextjs-sanity&utm_source=theme-readme&utm_medium=referral&utm_campaign=stackbit_themes"><img alt="Create with Stackbit" src="https://assets.stackbit.com/badge/create-with-stackbit.svg"/></a>
+</p>
 
+[Live Site demo](https://azimuth-nextjs-sanity.netlify.com/)
 ![Azimuth Nextjs Sanity Theme screenshot](https://themes.stackbit.com/images/azimuth-demo-1024x768.png)
 
 The theme can be used to create a static website that is hosted by a serverless
@@ -18,12 +21,12 @@ finishes generating the static website, [Netlify](https://www.netlify.com) pushe
 the static files to its CDN.
 
 <p align="center">
-  <img width="322" height="823" src="docs/nextjs-sourcebit-sanity-diagram.png">
+  <img width="260" src="docs/nextjs-sourcebit-sanity-diagram.png">
 </p>
 
 [Sourcebit](https://github.com/stackbithq/sourcebit) and its plugins, specifically
 [`sourcebit-source-sanity`](https://github.com/stackbithq/sourcebit-source-sanity)
-and [sourcebit-target-next](https://github.com/stackbithq/sourcebit-target-next),
+and [`sourcebit-target-next`](https://github.com/stackbithq/sourcebit-target-next),
 are used to fetch website contents from Sanity, normalize it, and provide it to
 Next.js pages. It also sets up live updates in development mode allowing to
 update the content in CMS and instantly see them in the browser.
@@ -31,8 +34,6 @@ update the content in CMS and instantly see them in the browser.
 The Next.js [SSG support](https://nextjs.org/blog/next-9-3#next-gen-static-site-generation-ssg-support)
 has been leveraged to support client side rendering when navigating the internal
 links of the site.
-
-[Site demo](https://azimuth-nextjs-sanity.netlify.com/)
 
 
 ## Quick Start 🏎
