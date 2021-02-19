@@ -3,7 +3,7 @@ import ReactHtmlParser, { convertNodeToElement } from 'react-html-parser';
 // import ScriptTag from 'react-script-tag';
 // import _ from 'lodash';
 
-export default function(html) {
+export default function htmlToReact(html) {
     if (!html) {
         return null;
     }

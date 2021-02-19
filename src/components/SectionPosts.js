@@ -5,7 +5,7 @@ import { Link, markdownify, postUrl } from '../utils';
 import PostFooter from './PostFooter';
 
 
-export default (props) => {
+export default function SectionPosts(props) {
     const section = _.get(props, 'section');
     const posts = _.take(_.orderBy(_.get(props, 'posts', []), ['date'], ['desc']), 3);
     return (
