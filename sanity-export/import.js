@@ -15,7 +15,7 @@ const client = sanityClient({
     useCdn: false
 });
 
-const input = fs.createReadStream(path.join(__dirname, 'export.json'));
+const input = fs.createReadStream(path.join(__dirname, 'export.tar.gz'));
 
 sanityImport(input, {
     client: client,

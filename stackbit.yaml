@@ -14,7 +14,7 @@ publishDir: out
 # a new site from this theme via https://app.stackbit.com/create.
 import:
   type: sanity
-  contentFile: sanity-export/export.json
+  contentFile: sanity-export/export.tar.gz
   sanityStudioPath: studio
   deployStudio: true
   deployGraphql: false

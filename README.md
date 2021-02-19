@@ -141,7 +141,9 @@ To contribute to this theme please follow the following steps:
         > creating a dataset...
         > created a dataset
 
-1. Copy paste the projectId from previous step and import the content to the project
+1. Copy paste the `projectId` from the output of the previous step and import
+   the initial theme contents from `sanity-export/export.tar.gz` to the
+   production dataset by running:
 
         node sanity-export/import.js <project_id>
 
@@ -174,7 +176,7 @@ To contribute to this theme please follow the following steps:
     browser will live-update your changes.
 
 1. Once you finish updating the code and contents, export the contents
-   back to sanity-export/export.json by running
+   back to the `sanity-export/export.tar.gz` file by running:
 
         node sanity-export/export.js <project_id>
 
