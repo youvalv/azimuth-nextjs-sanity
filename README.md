@@ -119,66 +119,93 @@ To contribute to this theme please follow the following steps:
 
 1. Clone this repository locally
 
-1. Install Sanity CLI
-
-        npm install -g @sanity/cli
-
-1. Login into Sanity
-
-        sanity login
+   ```shell
+   git clone https://github.com/stackbit-themes/azimuth-nextjs-sanity.git
+   ```
 
 1. Install dependencies
 
-        npm install
+   ```shell
+   npm install
+   ```
 
-1. Create an empty Sanity project, and a "production" dataset (this just creates
-   a project)
+1. Install Sanity CLI
 
-        node sanity-export/create-project.js
-        
-        > creating a project...
-        > created a project, projectId: dgaiu42f
-        > creating a dataset...
-        > created a dataset
+   ```shell
+   npm install -g @sanity/cli
+   ```
 
-1. Copy paste the `projectId` from the output of the previous step and import
-   the initial theme contents from `sanity-export/export.tar.gz` to the
-   production dataset by running:
+1. Login into Sanity
 
-        node sanity-export/import.js <project_id>
+   ```shell
+   sanity login
+   ```
+
+1. Create an empty Sanity project, and a dataset by running the following command:
+
+   ```shell
+   node sanity-export/create-project.js
+   ```
+   
+   This will create an empty Sanity project and a "production" dataset.
+   The output will include the project ID, you will need it in next steps:
+   
+   ```
+   > creating a project...
+   > created a project, projectId: dgaiu42f
+   > creating a dataset...
+   > created a dataset
+   ```
+
+1. Replace the `<project_id>` in the next command with the value of the
+   `projectId` from the previous step and run it to import the initial
+   theme contents from `sanity-export/export.tar.gz` to the "production"
+   dataset:
+
+   ```shell
+   node sanity-export/import.js <project_id>
+   ```
 
 1. Replace the `SANITY_PROJECT_ID` in [studio/sanity.json](studio/sanity.json)
-   with your Sanity project id
+   with `projectId`
 
 1. Install and start local Sanity Studio
 
-        cd studio
-        sanity install
-        sanity start
+   ```shell
+   cd studio
+   sanity install
+   sanity start
+   ```
 
    Sanity studio is now available at http://localhost:3333
 
 1. Define following environment variables to allow Sourcebit to fetch the content
-   from Sanity when developing or building the site. You will need to create a
-   "read-write" token in your Sanity project settings page 
+   from Sanity when developing or building the site locally. You will need to create
+   a "read-write" token in your Sanity project settings page 
    (https://manage.sanity.io/projects/__PROJECT_ID__/settings/api)
 
-       export SANITY_PROJECT_ID=<project_id>
-       export SANITY_DATASET=production
-       export SANITY_TOKEN=<read_write_token>
+   ```shell
+   export SANITY_PROJECT_ID=<project_id>
+   export SANITY_DATASET=production
+   export SANITY_TOKEN=<read_write_token>
+   ```
 
 1. Lastly, run the development server (from project folder):
 
-        npm run dev
+   ```shell
+   npm run dev
+   ```
 
-    Navigate to [http://localhost:3000](http://localhost:3000) to see the site.
-    You can now edit the site contents in the local Sanity Studio, and the
-    browser will live-update your changes.
+   Navigate to [http://localhost:3000](http://localhost:3000) to see the site.
+   You can now edit the site contents in the local Sanity Studio, and the
+   browser will live-update your changes.
 
 1. Once you finish updating the code and contents, export the contents
    back to the `sanity-export/export.tar.gz` file by running:
 
-        node sanity-export/export.js <project_id>
+   ```shell
+   node sanity-export/export.js <project_id>
+   ```
 
 1. Set back the `"projectId": "SANITY_PROJECT_ID"` in [studio/sanity.json](studio/sanity.json)
 
