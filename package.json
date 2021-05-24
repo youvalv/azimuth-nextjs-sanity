@@ -1,7 +1,7 @@
 {
   "name": "azimuth-nextjs-sanity",
   "version": "0.1.0",
-  "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "develop": "next dev",
@@ -23,9 +23,9 @@
     "react-dom": "17.0.1",
     "react-html-parser": "^2.0.2",
     "react-script-tag": "^1.1.2",
-    "sourcebit": "^0.10.0",
+    "sourcebit": "^0.11.0",
     "sourcebit-source-sanity": "^0.4.3",
-    "sourcebit-target-next": "^0.5.2",
+    "sourcebit-target-next": "^0.6.0",
     "webpack": "^5.22.0",
     "ws": "^7.4.3"
   },
