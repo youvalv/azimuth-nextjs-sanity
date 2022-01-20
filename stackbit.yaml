@@ -1,7 +1,7 @@
 # The stackbit.yaml file lets you define the characteristic of your website
 # needed to make your theme, or project, work with Stackbit. For more info about
 # stackbit.yaml configuration visit https://www.stackbit.com/docs/stackbit-yaml/
-stackbitVersion: ~0.3.0
+stackbitVersion: ~0.4.0
 ssgName: nextjs
 cmsName: sanity
 
